@@ -27,9 +27,10 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
+possibleActions = ["weatherAction","gregAction"]
 
 def processRequest(req):
-    if req.get("result").get("action") != "gregAction":
+    if req.get("result").get("action") not in possibleActions:
         return {}
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
     yql_query = makeYqlQuery(req)
