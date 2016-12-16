@@ -27,7 +27,7 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-possibleActions = ["weatherAction","gregAction","chuckNorrisAction"]
+possibleActions = ["weatherAction","gregAction","chuckNorrisAction","jokeAction"]
 
 def processRequest(req):
     if req.get("result").get("action") not in possibleActions:
@@ -37,7 +37,9 @@ def processRequest(req):
     if req.get("result").get("action") == "gregAction":
         return processGregRequest(req)
     if req.get("result").get("action") == "chuckNorrisAction":
-        return processChuckNorrisRequest(req)
+        return processJokeRequest(req)
+    if req.get("result").get("action") == "jokeAction":
+        return processJokeRequest(req)
 
 def processGregRequest(req):
     speech = "Yeah, this is a bit embarrassing, I'm not really sure yet what to do with your request.\nBut this is definitely coming from a webhook.\nSo technically it's working. Just so you know."
@@ -60,7 +62,14 @@ def processWeatherRequest(req):
     res = makeWeatherWebhookResult(data)
     return res
 
-def processChuckNorrisRequest(req):
+def processJokeRequest(req):
+    #check if name overriden or default Chuck Norris
+    result = req.get("result")
+    parameters = result.get("parameters")
+    name = parameters.get("name")
+    if name is None:
+        name = "Chuck Norris"
+    
     baseurl = "http://api.icndb.com/jokes/random"
     result = urllib.urlopen(baseurl).read()
     data = json.loads(result)
@@ -69,10 +78,9 @@ def processChuckNorrisRequest(req):
     if resp!="success":
         return {}
     joke = data.get('value').get('joke')
-    
-    name = 'Greg'
-    if OVERRIDE_NAME && name != null:
-        joke = joke.replace('Chuck Norris',name)
+
+    #override name in joke (default: Chuck Norris)
+    joke = joke.replace('Chuck Norris',name)
     
     return {
         "speech": joke,
