@@ -67,8 +67,9 @@ def processJokeRequest(req):
     result = req.get("result")
     parameters = result.get("parameters")
     name = parameters.get("name")
-    if name is None:
-        name = "Chuck Norris"
+    OVERRIDE = false
+    if name is not None:
+        OVERRIDE = true
     
     baseurl = "http://api.icndb.com/jokes/random"
     result = urllib.urlopen(baseurl).read()
@@ -80,8 +81,9 @@ def processJokeRequest(req):
     joke = data.get('value').get('joke')
 
     #override name in joke (default: Chuck Norris)
-    joke = joke.replace('Chuck Norris',name)
-    joke = joke.replace('Chuck',name) #cases where only Chuck appears
+    if OVERRIDE:
+        joke = joke.replace('Chuck Norris',name)
+        joke = joke.replace('Chuck',name) #cases where only Chuck appears
     
     return {
         "speech": joke,
