@@ -32,9 +32,9 @@ possibleActions = ["weatherAction","gregAction"]
 def processRequest(req):
     if req.get("result").get("action") not in possibleActions:
         return {}
-    if req.get("result").get("action") == "weatherAction":
+    if req.get("result").get("action") is "weatherAction":
         processWeatherRequest(req)
-    if req.get("result").get("action") == "gregAction":
+    if req.get("result").get("action") is "gregAction":
         processGregRequest(req)
 
 def processGregRequest(req):
