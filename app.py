@@ -27,7 +27,7 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-possibleActions = ["weatherAction","gregAction"]
+possibleActions = ["weatherAction","gregAction","chuckNorris"]
 
 def processRequest(req):
     if req.get("result").get("action") not in possibleActions:
@@ -36,6 +36,8 @@ def processRequest(req):
         return processWeatherRequest(req)
     if req.get("result").get("action") == "gregAction":
         return processGregRequest(req)
+    if req.get("result").get("action") == "chuckNorrisAction":
+        return processChuckNorrisRequest(req)
 
 def processGregRequest(req):
     speech = "Yeah, this is a bit embarrassing, I'm not really sure yet what to do with your request. But this is definitely coming from a webhook. Just so you know."
@@ -55,9 +57,27 @@ def processWeatherRequest(req):
     yql_url = baseurl + urllib.urlencode({'q': yql_query}) + "&format=json"
     result = urllib.urlopen(yql_url).read()
     data = json.loads(result)
-    res = makeWebhookResult(data)
+    res = makeWeatherWebhookResult(data)
     return res
 
+def processChuckNorrisRequest(req):
+    baseurl = "http://api.icndb.com/jokes/random"
+    result = urllib.urlopen(baseurl).read()
+    data = json.loads(result)
+    
+    resp = data.get('type')
+    if resp!="success":
+        return {}
+    joke = data.get('value').get('joke')
+    
+    return {
+        "speech": joke,
+        "displayText": joke,
+        # "data": data,
+        # "contextOut": [],
+        "source": "apiai-gregsagent"
+    }
+    
 def makeYqlQuery(req):
     result = req.get("result")
     parameters = result.get("parameters")
@@ -68,7 +88,7 @@ def makeYqlQuery(req):
     return "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + city + "')"
 
 
-def makeWebhookResult(data):
+def makeWeatherWebhookResult(data):
     query = data.get('query')
     if query is None:
         return {}
