@@ -32,6 +32,22 @@ possibleActions = ["weatherAction","gregAction"]
 def processRequest(req):
     if req.get("result").get("action") not in possibleActions:
         return {}
+    if req.get("result").get("action") == "weatherAction":
+        processWeatherRequest(req)
+    if req.get("result").get("action") == "gregAction":
+        processGregRequest(req)
+
+def processGregRequest(req):
+    speech = "Yeah, this is a bit embarrassing, I'm not really sure yet what to do with your request. But this is definitely coming from a webhook. Just so you know."
+    return {
+        "speech": speech,
+        "displayText": speech,
+        # "data": data,
+        # "contextOut": [],
+        "source": "apiai-gregsagent"
+    }
+
+def processWeatherRequest(req):
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
     yql_query = makeYqlQuery(req)
     if yql_query is None:
@@ -41,7 +57,6 @@ def processRequest(req):
     data = json.loads(result)
     res = makeWebhookResult(data)
     return res
-
 
 def makeYqlQuery(req):
     result = req.get("result")
