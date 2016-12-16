@@ -32,7 +32,7 @@ possibleActions = ["weatherAction","gregAction"]
 def processRequest(req):
     if req.get("result").get("action") not in possibleActions:
         return {}
-    if req.get("result").get("action") is "weatherAction":
+    if req.get("result").get("action") == "weatherAction":
         baseurl = "https://query.yahooapis.com/v1/public/yql?"
         yql_query = makeYqlQuery(req)
         if yql_query is None:
@@ -42,7 +42,7 @@ def processRequest(req):
         data = json.loads(result)
         res = makeWebhookResult(data)
         return res
-    if req.get("result").get("action") is "gregAction":
+    if req.get("result").get("action") == "gregAction":
         processGregRequest(req)
 
 def processGregRequest(req):
