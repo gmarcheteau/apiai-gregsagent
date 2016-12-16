@@ -71,7 +71,8 @@ def processChuckNorrisRequest(req):
     joke = data.get('value').get('joke')
     
     name = 'Greg'
-    joke = joke.replace('Chuck Norris',name)
+    if OVERRIDE_NAME && name != null:
+        joke = joke.replace('Chuck Norris',name)
     
     return {
         "speech": joke,
