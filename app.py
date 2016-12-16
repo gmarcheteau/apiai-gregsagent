@@ -27,7 +27,7 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-possibleActions = ["weatherAction","gregAction","chuckNorris"]
+possibleActions = ["weatherAction","gregAction","chuckNorrisAction"]
 
 def processRequest(req):
     if req.get("result").get("action") not in possibleActions:
