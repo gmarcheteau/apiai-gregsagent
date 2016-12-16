@@ -39,8 +39,7 @@ def processRequest(req):
     result = urllib.urlopen(yql_url).read()
     data = json.loads(result)
     res = makeWebhookResult(data)
-    #return res
-    return "You really want to know the weather in",req,"??"
+    return res
 
 
 def makeYqlQuery(req):
