@@ -71,7 +71,8 @@ def processChuckNorrisRequest(req):
     joke = data.get('value').get('joke')
     
     name = 'Greg'
-    joke = joke.replace('Chuck Norris',name)
+    if name != null:
+        joke = string.replace(joke,'Chuck Norris',name)
     
     return {
         "speech": joke,
