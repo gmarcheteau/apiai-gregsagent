@@ -81,6 +81,7 @@ def processJokeRequest(req):
 
     #override name in joke (default: Chuck Norris)
     joke = joke.replace('Chuck Norris',name)
+    joke = joke.replace('Chuck',name) #cases where only Chuck appears
     
     return {
         "speech": joke,
