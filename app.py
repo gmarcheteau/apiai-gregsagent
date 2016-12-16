@@ -67,9 +67,6 @@ def processJokeRequest(req):
     result = req.get("result")
     parameters = result.get("parameters")
     name = parameters.get("name")
-    OVERRIDE = false
-    if name:
-        OVERRIDE = true
     
     baseurl = "http://api.icndb.com/jokes/random"
     result = urllib.urlopen(baseurl).read()
@@ -81,8 +78,8 @@ def processJokeRequest(req):
     joke = data.get('value').get('joke')
 
     #override name in joke (default: Chuck Norris)
-    if OVERRIDE:
-        joke = joke.replace('Chuck Norris',name)
+    joke = joke.replace('Chuck Norris',name)
+    if name!='Chuck Norris': #otherwise the default becomes Chuck Chuck Norris
         joke = joke.replace('Chuck',name) #cases where only Chuck appears
     
     return {
