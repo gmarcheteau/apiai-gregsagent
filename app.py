@@ -40,7 +40,7 @@ def processRequest(req):
         return processChuckNorrisRequest(req)
 
 def processGregRequest(req):
-    speech = "Yeah, this is a bit embarrassing, I'm not really sure yet what to do with your request. But this is definitely coming from a webhook. Just so you know."
+    speech = "Yeah, this is a bit embarrassing, I'm not really sure yet what to do with your request.\nBut this is definitely coming from a webhook.\nSo technically it's working. Just so you know."
     return {
         "speech": speech,
         "displayText": speech,
