@@ -70,6 +70,10 @@ def processChuckNorrisRequest(req):
         return {}
     joke = data.get('value').get('joke')
     
+    name = 'Greg'
+    if(name != null):
+        joke = joke.replace("Chuck Norris",name)
+    
     return {
         "speech": joke,
         "displayText": joke,
