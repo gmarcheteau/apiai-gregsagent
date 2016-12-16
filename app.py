@@ -68,7 +68,7 @@ def processJokeRequest(req):
     parameters = result.get("parameters")
     name = parameters.get("name")
     OVERRIDE = false
-    if name is not None:
+    if name:
         OVERRIDE = true
     
     baseurl = "http://api.icndb.com/jokes/random"
