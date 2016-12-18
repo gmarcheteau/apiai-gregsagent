@@ -3,6 +3,7 @@
 import urllib
 import json
 import os
+import bsgenerator
 
 from flask import Flask
 from flask import request
@@ -40,6 +41,8 @@ def processRequest(req):
         return processJokeRequest(req)
     if req.get("result").get("action") == "jokeAction":
         return processJokeRequest(req)
+    if req.get("result").get("action") == "bsAction":
+        return processBSRequest(req)
 
 def processGregRequest(req):
     speech = "Yeah, this is a bit embarrassing, I'm not really sure yet what to do with your request.\nBut this is definitely coming from a webhook.\nSo technically it's working. Just so you know."
@@ -50,6 +53,17 @@ def processGregRequest(req):
         # "contextOut": [],
         "source": "apiai-gregsagent"
     }
+
+def processBSRequest(req):
+    speech = bsgenerator.generatePhrase()
+    return {
+        "speech": speech,
+        "displayText": speech,
+        # "data": data,
+        # "contextOut": [],
+        "source": "apiai-gregsagent via the BS Generator"
+    }
+
 
 def processWeatherRequest(req):
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
@@ -141,6 +155,18 @@ def makeWeatherWebhookResult(data):
         "source": "apiai-gregsagent"
     }
 
+
+if __name__ == '__main__':
+    port = int(os.getenv('PORT', 5000))
+
+    print "Starting app on port %d" % port
+
+    app.run(debug=False, port=port, host='0.0.0.0')
+
+
+@app.route('/getbs', methods=['GET'])
+def hello():
+  return bsgenerator.generatePhrase()
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
