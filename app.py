@@ -3,7 +3,6 @@
 import urllib
 import json
 import os
-import bsgenerator
 
 from flask import Flask
 from flask import request
@@ -55,7 +54,8 @@ def processGregRequest(req):
     }
 
 def processBSRequest(req):
-    speech = bsgenerator.generatePhrase()
+    speech = "Never mind"
+    #speech = bsgenerator.generatePhrase()
     return {
         "speech": speech,
         "displayText": speech,
