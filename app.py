@@ -156,6 +156,10 @@ def makeWeatherWebhookResult(data):
         "source": "apiai-gregsagent"
     }
 
+@app.route('/getbs', methods=['GET'])
+def getBS():
+  return bsgenerator.generatePhrase()
+
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
