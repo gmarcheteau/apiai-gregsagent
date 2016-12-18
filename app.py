@@ -55,8 +55,8 @@ def processGregRequest(req):
     }
 
 def processBSRequest(req):
-    speech = "Never mind"
-    #speech = bsgenerator.generatePhrase()
+    #speech = "Never mind"
+    speech = bsgenerator.generatePhrase()
     return {
         "speech": speech,
         "displayText": speech,
