@@ -93,6 +93,9 @@ def processJokeRequest(req):
     if resp!="success":
         return {}
     joke = data.get('value').get('joke')
+    
+    #correct issue with quotes &quot;
+    joke = joke.replace('&quot;','\'')
 
     #override name in joke (default: Chuck Norris)
     joke = joke.replace('Chuck Norris',name)
