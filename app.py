@@ -161,7 +161,7 @@ def makeWeatherWebhookResult(data):
 
 @app.route('/getbs', methods=['GET'])
 def getBS():
-  return bsgenerator.generatePhrase()
+  return "<p>"+bsgenerator.generatePhrase()+"</p>"
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
