@@ -162,6 +162,10 @@ def makeWeatherWebhookResult(data):
 
 @app.route('/getbs', methods=['GET'])
 def getBS():
+  return "<p>"+bs.generatePhrase()+"</p>"
+
+@app.route('/getbs_en', methods=['GET'])
+def getBS_en():
   return "<p>"+bs_en.generatePhrase()+"</p>"
 
 if __name__ == '__main__':
