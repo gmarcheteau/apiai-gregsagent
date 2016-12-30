@@ -171,7 +171,20 @@ def getBS_en():
 
 @app.route('/getbs_img', methods=['GET'])
 def getBS_img():
-  return "<p>"+imageapp.commentOnImage()+"</p>"
+  imageurl = request.args.get('imageurl')
+  if not imageurl:
+    imageurl = "http://www.telegraph.co.uk/content/dam/art/2016/10/04/picasso-large_trans++qVzuuqpFlyLIwiB6NTmJwbKTcqHAsmNzJMPMiov7fpk.jpg"
+  
+  #remove quotes in url if any
+  imageurl = imageurl.strip('"').strip('\'')
+  
+  response = ''
+  response += "<h2>Artomatic 2000</h2>"
+  response += "<img src=\""+imageurl+"\" alt=\"target pic\" />"
+  response += "<p>"+imageapp.commentOnImage(imageurl)+"</p>"
+  response += "<p><a href="+imageurl+">Source image</a></p>"
+  
+  return response
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))

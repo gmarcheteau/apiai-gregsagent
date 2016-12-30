@@ -8,6 +8,8 @@ def commentOnImage(*url):
   if not url:
     return "Hmm, I need an image to comment on, sorry."
   else:
+    #optional URL parameter arrives as a tuple?
+    url = url[0]
     image_resized = processimage.url_to_image(url)
     clt = clustercolors.fitColorClustering(image_resized)
     maincolors = clustercolors.getColorsFromClusters(clt)

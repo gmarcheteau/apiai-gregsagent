@@ -106,6 +106,16 @@ space = ' '
 
 def generatePhrase(*maincolors):
   a = ''
+  if maincolors:
+    #optional URL parameter arrives as a tuple?
+    maincolors = maincolors[0]
+    number_colors = len(maincolors)
+    a =  "One can identify %d dominant colours. The use of %s is particularly striking." % (number_colors, maincolors[0][1])
+    if number_colors>1:
+      abis = "Touches of %s come as a clever surpise." % maincolors[1][1]
+      a = ' '.join((a,abis))
+      a += ' '
+  
   rand1 = random.randint(0,len(locutions)-1)
   rand2 = random.randint(0,len(nouns)-1)
   rand3 = random.randint(0,len(verbes)-1)
@@ -127,16 +137,8 @@ def generatePhrase(*maincolors):
           #no space before finish_locution
           finish_locutions[rand5]
       ])
-  phrase = b
   
-  
-  if maincolors:
-    number_colors = len(maincolors)
-    a =  "One can identify %d dominant colours. The use of %s is particularly striking." % (number_colors, maincolors[0][1])
-    if number_colors>1:
-      abis = "Touches of %s come as a clever surpise." % maincolors[1][1]
-      a = ' '.join((a,abis))
-      phrase = ''.join((a,' ',b))
+  phrase = ''.join((a,' ',b))
   
   return phrase
 
