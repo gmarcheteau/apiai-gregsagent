@@ -185,7 +185,7 @@ def getBS_img():
   response += "<img src=\""+imageurl+"\" alt=\"target pic\" />"
   response += "<p>"+imageapp.commentOnImage(imageurl)+"</p>"
   response += "<p><a href="+imageurl+">Source image</a></p>"
-  response += "<p><i>Ask for a comment on a specific image using the imageurl parameter, adding ?imageurl=[your image url] to this page\'s url, e.g. try <a href=\"?imageurl=http://www.livescience.com/images/i/000/076/219/original/cucumbers.jpg?interpolation=lanczos-none&downsize=*:100\">a cucumber</a> or <a href=\"?imageurl=https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRzYpcdAshr9xLfSwONO4Oku7bXXQ0RJ1LnZAtqAieDyNmqqpRbvA\">this image</a></i></p>"
+  response += "<p><i>Ask for a comment on a specific image using the imageurl parameter, adding ?imageurl=[your image url] to this page\'s url, e.g. try <a href=\"?imageurl=http://4.bp.blogspot.com/-se2NiVM6Ifw/VZPOXwYD3VI/AAAAAAAAIDo/_dDgrAfvanU/s1600/Rothko.jpg\">this image</a> or <a href=\"?imageurl=https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRzYpcdAshr9xLfSwONO4Oku7bXXQ0RJ1LnZAtqAieDyNmqqpRbvA\">this one</a></i></p>"
   return response
 
 if __name__ == '__main__':
