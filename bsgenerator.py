@@ -111,7 +111,10 @@ finish_locutions = np.array([
 
 space = ' '
 
-def generatePhrase():
+def generatePhrase(maincolors):
+  if maincolors:
+    a =  "On remarque au premier regard les %d couleurs dominantes. Le %s est particulièrement émouvant." % (len(maincolors), maincolors[0][1])
+    
     rand1 = random.randint(0,len(locutions)-1)
     rand2 = random.randint(0,len(nouns)-1)
     rand3 = random.randint(0,len(verbes)-1)
@@ -122,7 +125,7 @@ def generatePhrase():
         rand4 = random.randint(0,len(nouns)-1)
     rand5 = random.randint(0,len(finish_locutions)-1)
 
-    a = ''.join([
+    b = ''.join([
             locutions[rand1],
             space,
             nouns[rand2],
@@ -133,7 +136,7 @@ def generatePhrase():
             #no space before finish_locution
             finish_locutions[rand5]
         ])
-    return a
+    return ' '.join((a,b))
 
 def index():
     """
