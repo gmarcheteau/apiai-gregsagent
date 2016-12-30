@@ -111,32 +111,41 @@ finish_locutions = np.array([
 
 space = ' '
 
-def generatePhrase(maincolors):
-  if maincolors:
-    a =  "On remarque au premier regard les %d couleurs dominantes. Le %s est particulièrement émouvant." % (len(maincolors), maincolors[0][1])
-    
-    rand1 = random.randint(0,len(locutions)-1)
-    rand2 = random.randint(0,len(nouns)-1)
-    rand3 = random.randint(0,len(verbes)-1)
-    #cannot use the same random int multiple times for nouns
-    #initialize as same, then while loop
-    rand4 = rand2
-    while(rand4==rand2):
-        rand4 = random.randint(0,len(nouns)-1)
-    rand5 = random.randint(0,len(finish_locutions)-1)
+def generatePhrase(*maincolors):
+  a = ''
+  rand1 = random.randint(0,len(locutions)-1)
+  rand2 = random.randint(0,len(nouns)-1)
+  rand3 = random.randint(0,len(verbes)-1)
+  #cannot use the same random int multiple times for nouns
+  #initialize as same, then while loop
+  rand4 = rand2
+  while(rand4==rand2):
+      rand4 = random.randint(0,len(nouns)-1)
+  rand5 = random.randint(0,len(finish_locutions)-1)
 
-    b = ''.join([
-            locutions[rand1],
-            space,
-            nouns[rand2],
-            space,
-            verbes[rand3],
-            space,
-            nouns[rand4],
-            #no space before finish_locution
-            finish_locutions[rand5]
-        ])
-    return ' '.join((a,b))
+  b = ''.join([
+          locutions[rand1],
+          space,
+          nouns[rand2],
+          space,
+          verbes[rand3],
+          space,
+          nouns[rand4],
+          #no space before finish_locution
+          finish_locutions[rand5]
+      ])
+  phrase = b
+  
+  
+  if maincolors:
+    number_colors = len(maincolors)
+    a =  "One can identify %d dominant colours. The use of %s is particularly striking." % (number_colors, maincolors[0][1])
+    if number_colors>1:
+      abis = "Touches of %s come as a clever surpise." % maincolors[1][1]
+      a = ' '.join((a,abis))
+      phrase = ''.join((a,' ',b))
+  
+  return phrase
 
 def index():
     """
