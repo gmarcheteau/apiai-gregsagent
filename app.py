@@ -5,6 +5,7 @@ import json
 import os
 import ArtyFarty.bsgenerator as bs
 import ArtyFarty.bsgenerator_en as bs_en
+import ArtyFarty.imageapp as imageapp
 
 from flask import Flask
 from flask import request
@@ -167,6 +168,10 @@ def getBS():
 @app.route('/getbs_en', methods=['GET'])
 def getBS_en():
   return "<p>"+bs_en.generatePhrase()+"</p>"
+
+@app.route('/getbs_img', methods=['GET'])
+def getBS_img():
+  return "<p>"+imageapp.commentOnImage()+"</p>"
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))

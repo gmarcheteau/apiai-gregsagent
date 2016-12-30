@@ -1,6 +1,8 @@
 import clustercolors
 import colornames
 import processimage
+import bsgenerator as bs
+import bsgenerator_en as bs_en
 
 #get from user
 url = raw_input("Image URL: ")
@@ -9,10 +11,14 @@ url = raw_input("Image URL: ")
 
 #default url is invalid or no input
 if (len(url)<2):
-  url="https://lh3.ggpht.com/T1-pgt04AHPA01FPGahJ0CwV7jo4FpM6ZiM6vT5WU22K3aniMabWlqTuqtOox8sVXQ=w300"
+  url="http://www.fondationlouisvuitton.fr/content/flvinternet/fr/expositions/exposition-les-clefs-d-une-passion/la-danse-d-henri-matisse/_jcr_content/content/columncontrol_8b3e/leftG6/image_2398.flvcrop.980.5000.jpeg"
 
-image_resized = processimage.url_to_image(url)
-
-clt = clustercolors.fitColorClustering(image_resized)
-maincolors = clustercolors.getColorsFromClusters(clt)
-clustercolors.showColorClusters(image_resized,maincolors)
+def commentOnImage(url):
+  if not url:
+    return "Hmm, I need an image to comment on, sorry."
+  else:
+    image_resized = processimage.url_to_image(url)
+    clt = clustercolors.fitColorClustering(image_resized)
+    maincolors = clustercolors.getColorsFromClusters(clt)
+    clustercolors.showColorClusters(image_resized,maincolors)
+    return bs_en.generatePhrase(maincolors)
