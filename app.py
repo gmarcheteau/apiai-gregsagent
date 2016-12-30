@@ -172,18 +172,20 @@ def getBS_en():
 @app.route('/getbs_img', methods=['GET'])
 def getBS_img():
   imageurl = request.args.get('imageurl')
+  defaultURL = "http://www.telegraph.co.uk/content/dam/art/2016/10/04/picasso-large_trans++qVzuuqpFlyLIwiB6NTmJwbKTcqHAsmNzJMPMiov7fpk.jpg"
   if not imageurl:
-    imageurl = "http://www.telegraph.co.uk/content/dam/art/2016/10/04/picasso-large_trans++qVzuuqpFlyLIwiB6NTmJwbKTcqHAsmNzJMPMiov7fpk.jpg"
-  
+    imageurl = defaultURL
   #remove quotes in url if any
   imageurl = imageurl.strip('"').strip('\'')
+  if not imageurl.startswith("http"):
+    imageurl = defaultURL
   
   response = ''
   response += "<h2>Artomatic 2000</h2>"
   response += "<img src=\""+imageurl+"\" alt=\"target pic\" />"
   response += "<p>"+imageapp.commentOnImage(imageurl)+"</p>"
   response += "<p><a href="+imageurl+">Source image</a></p>"
-  
+  response += "<p><i>Ask for a comment on a specific image using the imageurl parameter, adding ?imageurl=[your image url] to this page\'s url, e.g. try <a href=\"?imageurl=http://www.livescience.com/images/i/000/076/219/original/cucumbers.jpg?interpolation=lanczos-none&downsize=*:100\">a cucumber</a> or <a href=\"?imageurl=https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRzYpcdAshr9xLfSwONO4Oku7bXXQ0RJ1LnZAtqAieDyNmqqpRbvA\">this image</a></i></p>"
   return response
 
 if __name__ == '__main__':
