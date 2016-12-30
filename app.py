@@ -3,8 +3,8 @@
 import urllib
 import json
 import os
-import bsgenerator as bs
-import bsgenerator_en as bs_en
+import ArtyFary.bsgenerator as bs
+import ArtyFary.bsgenerator_en as bs_en
 
 from flask import Flask
 from flask import request
