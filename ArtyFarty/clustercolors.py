@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import colornames
-
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_samples, silhouette_score
  
