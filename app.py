@@ -3,7 +3,8 @@
 import urllib
 import json
 import os
-import bsgenerator
+import bsgenerator as bs
+import bsgenerator_en as bs_en
 
 from flask import Flask
 from flask import request
@@ -56,7 +57,7 @@ def processGregRequest(req):
 
 def processBSRequest(req):
     #speech = "Never mind"
-    speech = bsgenerator.generatePhrase()
+    speech = bs_en.generatePhrase()
     return {
         "speech": speech,
         "displayText": speech,
@@ -161,7 +162,7 @@ def makeWeatherWebhookResult(data):
 
 @app.route('/getbs', methods=['GET'])
 def getBS():
-  return "<p>"+bsgenerator.generatePhrase()+"</p>"
+  return "<p>"+bs_en.generatePhrase()+"</p>"
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
