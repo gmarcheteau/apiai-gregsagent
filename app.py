@@ -196,7 +196,9 @@ def getBS_img():
   response += "<p><a href="+imageurl+">Source image</a></p>"
   response += "<p><i>Ask for a comment on a specific image using the imageurl parameter, adding ?imageurl=[your image url] to this page\'s url, e.g. try <a href=\"?imageurl=http://4.bp.blogspot.com/-se2NiVM6Ifw/VZPOXwYD3VI/AAAAAAAAIDo/_dDgrAfvanU/s1600/Rothko.jpg\">this image</a> or <a href=\"?imageurl=https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRzYpcdAshr9xLfSwONO4Oku7bXXQ0RJ1LnZAtqAieDyNmqqpRbvA\">this one</a></i></p>"
   #response += "<div style=\"width:500px;height:100px;border:0px solid #000;background-color:rgb"+str(maincolors[0][0])+";\">Main color</div>"
-  response += "<img src=\"colorboxes.png\" alt=\"main colors\" />"
+  
+  #TODO: getting image from local, saved in clustercolors.py, not working.
+  #response += "<img src=\"colorboxes.png\" alt=\"main colors\" />"
   
   return response
 
