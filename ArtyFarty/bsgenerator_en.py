@@ -35,7 +35,7 @@ nouns = np.array([
         'the joyful succession of dashes',
         'this constant hesitation between shadow and light',
         'the frustrating inertia with with shapes come alive',
-        'the insolent - though necessary - blur',
+        'the insolent (though necessary) blur',
         'the patent scorn for light hue',
         
         # 'l\'ordonnancement matriciel des points de fuite',

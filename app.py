@@ -180,13 +180,56 @@ def getBS_img():
   if not imageurl.startswith("http"):
     imageurl = defaultURL
   
+  #get data from image comment (comment, colors, drawn colors)
+  imageresponse = imageapp.commentOnImage(imageurl)
+  imagecomment = imageresponse["comment"]
+  maincolors = imageresponse["colors"]
+  print type(imageresponse)
+  print type(imagecomment)
+  print type(maincolors)
+  
+  #build html response
   response = ''
   response += "<h2>Artomatic 2000</h2>"
   response += "<img src=\""+imageurl+"\" alt=\"target pic\" />"
-  response += "<p>"+imageapp.commentOnImage(imageurl)+"</p>"
+  response += "<p>"+imagecomment+"</p>"
   response += "<p><a href="+imageurl+">Source image</a></p>"
   response += "<p><i>Ask for a comment on a specific image using the imageurl parameter, adding ?imageurl=[your image url] to this page\'s url, e.g. try <a href=\"?imageurl=http://4.bp.blogspot.com/-se2NiVM6Ifw/VZPOXwYD3VI/AAAAAAAAIDo/_dDgrAfvanU/s1600/Rothko.jpg\">this image</a> or <a href=\"?imageurl=https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRzYpcdAshr9xLfSwONO4Oku7bXXQ0RJ1LnZAtqAieDyNmqqpRbvA\">this one</a></i></p>"
+  #response += "<div style=\"width:500px;height:100px;border:0px solid #000;background-color:rgb"+str(maincolors[0][0])+";\">Main color</div>"
+  response += "<img src=\"colorboxes.png\" alt=\"main colors\" />"
+  
   return response
+
+@app.route("/simple.png")
+def simple():
+    import datetime
+    import StringIO
+    import random
+
+    from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+    from matplotlib.figure import Figure
+    from matplotlib.dates import DateFormatter
+
+    fig=Figure()
+    ax=fig.add_subplot(111)
+    x=[]
+    y=[]
+    now=datetime.datetime.now()
+    delta=datetime.timedelta(days=1)
+    for i in range(10):
+        x.append(now)
+        now+=delta
+        y.append(random.randint(0, 1000))
+    ax.plot_date(x, y, '-')
+    ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
+    fig.autofmt_xdate()
+    canvas=FigureCanvas(fig)
+    png_output = StringIO.StringIO()
+    canvas.print_png(png_output)
+    response=make_response(png_output.getvalue())
+    response.headers['Content-Type'] = 'image/png'
+    return response
+
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))

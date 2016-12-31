@@ -104,3 +104,23 @@ def showColorClusters(image_resized,maincolors):
   plt.xlim(0, 1)
   plt.axis('off')
   plt.show()
+
+#maincolors is the output from the clustering, in a list
+def saveColorBox(maincolors):
+  from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+  from matplotlib.figure import Figure
+  import StringIO
+  #plot color graph
+  lastX=0
+  for i in maincolors:
+    plt.axvspan(lastX, lastX+i[2], edgecolor='none', facecolor=i[1], alpha=1)
+    lastX+=i[2]
+  plt.xlim(0, 1)
+  plt.axis('off')
+  
+  fig = plt.figure()
+  fig.savefig('colorboxes.png')
+  
+  #canvas=FigureCanvas(fig)
+  #png_output = StringIO.StringIO()
+  #canvas.print_png(png_output)

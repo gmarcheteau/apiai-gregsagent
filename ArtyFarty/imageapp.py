@@ -14,7 +14,12 @@ def commentOnImage(*url):
     clt = clustercolors.fitColorClustering(image_resized)
     maincolors = clustercolors.getColorsFromClusters(clt)
     #clustercolors.showColorClusters(image_resized,maincolors)
-    return bs_en.generatePhrase(maincolors)
+    #save the color boxes as a colorboxes.png
+    clustercolors.saveColorBox(maincolors)
+    response = {}
+    response["comment"] = bs_en.generatePhrase(maincolors)
+    response["colors"] = maincolors
+    return response
 
 def getURLfromUser():
   #get from user
