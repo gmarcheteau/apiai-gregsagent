@@ -59,6 +59,7 @@ def processGregRequest(req):
 def processBSRequest(req):
     #speech = "Never mind"
     speech = bs_en.generatePhrase()
+    speech += "For more, check https://artyfarty.herokuapp.com/getbs"
     return {
         "speech": speech,
         "displayText": speech,
