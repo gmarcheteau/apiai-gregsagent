@@ -56,8 +56,8 @@ def startGame(req):
     rand = random.randint(0,len(guesses)-1)
     guess = guesses[rand]
     response = {
-        #"speech": guess,
-        #"displayText": guess,
+        "speech": guess,
+        "displayText": guess,
         "guess": guess,
         # "contextOut": [],
         "source": "apiai-gregsagent for Tactotaac"
