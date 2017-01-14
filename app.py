@@ -55,6 +55,7 @@ def startGame(req):
     guesses = ["flower","beef", "beer", "table", "car", "house", "Trump"]
     rand = random.randint(0,len(guesses)-1)
     guess = guesses[rand]
+    guess = guess + '?'
     response = {
         "speech": guess,
         "displayText": guess,
