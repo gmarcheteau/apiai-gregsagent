@@ -30,7 +30,7 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-possibleActions = ["weatherAction","gregAction","chuckNorrisAction","jokeAction","bsAction","startGameAction"]
+possibleActions = ["weatherAction","gregAction","chuckNorrisAction","jokeAction","bsAction","startGameAction","nextClueAction"]
 
 def processRequest(req):
     if req.get("result").get("action") not in possibleActions:
@@ -47,6 +47,8 @@ def processRequest(req):
         return processBSRequest(req)
     if req.get("result").get("action") == "startGameAction":
         return startGame(req)
+    if req.get("result").get("action") == "nextClueAction":
+        return nextClue(req)
 
 ###prototype support for Tacotac agent-----###
 ###to be moved to proper project-----------###
@@ -64,6 +66,8 @@ def startGame(req):
         "source": "apiai-gregsagent for Tactotaac"
     }
     return response
+def nextClue(req):
+    return startGame(req)
 ###---------------------------------------###
 def processGregRequest(req):
     speech = "Yeah, this is a bit embarrassing, I'm not really sure yet what to do with your request.\nBut this is definitely coming from a webhook.\nSo technically it's working. Just so you know."
