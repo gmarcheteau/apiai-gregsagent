@@ -47,6 +47,9 @@ def processRequest(req):
         return processBSRequest(req)
     if req.get("result").get("action") == "startGameAction":
         return startGame(req)
+
+###prototype support for Tacotac agent-----###
+###to be moved to proper project-----------###
 def startGame(req):
     import random
     guesses = ["flower","beef", "beer", "table", "car", "house", "Trump"]
@@ -60,7 +63,7 @@ def startGame(req):
         "source": "apiai-gregsagent for Tactotaac"
     }
     return response
-    
+###---------------------------------------###
 def processGregRequest(req):
     speech = "Yeah, this is a bit embarrassing, I'm not really sure yet what to do with your request.\nBut this is definitely coming from a webhook.\nSo technically it's working. Just so you know."
     return {
