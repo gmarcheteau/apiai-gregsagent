@@ -61,8 +61,14 @@ def startGame(req):
     response = {
         "speech": guess,
         "displayText": guess,
-        "$guess": guess,
-        # "contextOut": [],
+        "contextOut": [
+            {
+                "name":"guessing_context",
+                "lifespan":2,
+                "parameters":{
+                    "guess":guess
+                }
+            }],
         "source": "apiai-gregsagent for Tactotaac"
     }
     return response
