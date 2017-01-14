@@ -63,7 +63,7 @@ def startGame(req):
         "displayText": guess,
         "contextOut": [
             {
-                "name":"guessing_context",
+                "name":"playing_context",
                 "lifespan":2,
                 "parameters":{
                     "guess":guess
