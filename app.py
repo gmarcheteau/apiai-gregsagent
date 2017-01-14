@@ -64,7 +64,7 @@ def startGame(req):
         "contextOut": [
             {
                 "name":"playing_context",
-                "lifespan":2,
+                "lifespan":20,
                 "parameters":{
                     "guess":guess
                 }
