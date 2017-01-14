@@ -47,8 +47,8 @@ def processRequest(req):
         return processBSRequest(req)
     if req.get("result").get("action") == "startGameAction":
         return startGame(req)
-    if req.get("result").get("action") == "nextClueAction":
-        return nextClue(req)
+    if req.get("result").get("action") == "wrongGuessAction":
+        return wrongGuess(req)
 
 ###prototype support for Tacotac agent-----###
 ###to be moved to proper project-----------###
@@ -72,7 +72,7 @@ def startGame(req):
         "source": "apiai-gregsagent for Tactotaac"
     }
     return response
-def nextClue(req):
+def wrongGuess(req):
     return startGame(req)
 ###---------------------------------------###
 def processGregRequest(req):
