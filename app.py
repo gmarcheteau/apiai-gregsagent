@@ -57,7 +57,14 @@ def startGame(req):
     guesses = ["flower","beef", "beer", "table", "car", "house", "Trump"]
     rand = random.randint(0,len(guesses)-1)
     guess = guesses[rand]
-    guess = guess + '?'
+    guess += '?'
+    
+    result = req.get("result")
+    parameters = result.get("parameters")
+    clue = parameters.get("clue")
+    
+    guess += " (clue was: %s)" %clue 
+    
     response = {
         "speech": guess,
         "displayText": guess,
