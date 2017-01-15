@@ -58,7 +58,7 @@ def startGame(req):
     import random
     #if clue already provided, return guess
     clue=req.get("result").get("parameters").get("clue")
-    if clue is not None:
+    if clue is not "":
         return guess(req)
     #else start game and ask for clue
     else:
