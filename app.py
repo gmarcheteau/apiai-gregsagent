@@ -58,11 +58,8 @@ def startGame(req):
     rand = random.randint(0,len(guesses)-1)
     guess = guesses[rand]
     guess += '?'
-    
-    result = req.get("result")
-    parameters = result.get("parameters")
-    clue = parameters.get("clue")
-    
+    #adding clue to response, to show that it's been processed
+    clue=req.get("result").get("parameters").get("clue")
     guess += " (clue was: %s)" %clue 
     
     response = {
