@@ -54,14 +54,34 @@ def processRequest(req):
 ###to be moved to proper project-----------###
 def startGame(req):
     import random
+    #if clue already provided, return guess
+    clue=req.get("result").get("parameters").get("clue")
+    if clue is not Null:
+        return guess(req)
+    #else start game and ask for clue
+    else:
+        response = {
+            "speech": guess,
+            "displayText": guess,
+            "contextOut": [
+                {
+                    "name":"providing_clue",
+                    "lifespan":20,
+                    "parameters":{}
+                }],
+            "source": "apiai-gregsagent for Tactotaac"
+        }
+        return response
+
+def wrongGuess(req):
+    return startGame(req)
+def guess(req):
+    clue=req.get("result").get("parameters").get("clue")
     guesses = ["flower","beef", "beer", "table", "car", "house", "Trump"]
     rand = random.randint(0,len(guesses)-1)
     guess = guesses[rand]
     guess += '?'
-    #adding clue to response, to show that it's been processed
-    clue=req.get("result").get("parameters").get("clue")
     guess += " (clue was: %s)" %clue 
-    
     response = {
         "speech": guess,
         "displayText": guess,
@@ -76,8 +96,6 @@ def startGame(req):
         "source": "apiai-gregsagent for Tactotaac"
     }
     return response
-def wrongGuess(req):
-    return startGame(req)
 ###---------------------------------------###
 def processGregRequest(req):
     speech = "Yeah, this is a bit embarrassing, I'm not really sure yet what to do with your request.\nBut this is definitely coming from a webhook.\nSo technically it's working. Just so you know."
