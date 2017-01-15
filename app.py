@@ -3,6 +3,7 @@
 import urllib
 import json
 import os
+import random
 import ArtyFarty.bsgenerator as bs
 import ArtyFarty.bsgenerator_en as bs_en
 import ArtyFarty.imageapp as imageapp
@@ -55,7 +56,6 @@ def processRequest(req):
 ###prototype support for Tacotac agent-----###
 ###to be moved to proper project-----------###
 def startGame(req):
-    import random
     #if clue already provided, return guess
     if req.get("result").get("parameters").get("clue"):
         return guess(req)
