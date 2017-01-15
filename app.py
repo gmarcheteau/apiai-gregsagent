@@ -87,8 +87,8 @@ def correctGuess(req):
         "displayText": bragging,
         "contextOut": [
             {
-                "name":"",
-                "lifespan":3,
+                "name":"home_context",
+                "lifespan":20,
                 "parameters":{}
             }],
         "source": "apiai-gregsagent for Tactotaac"
