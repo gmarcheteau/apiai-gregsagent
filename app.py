@@ -61,8 +61,8 @@ def startGame(req):
     if clue is not None:
         return guess(req)
     #else start game and ask for clue
-    askForClue  = "Ok what's your first clue?"
     else:
+        askForClue  = "Ok what's your first clue?"
         response = {
             "speech": askForClue,
             "displayText": askForClue,
