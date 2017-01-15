@@ -49,16 +49,18 @@ def processRequest(req):
     if req.get("result").get("action") == "startGameAction":
         return startGame(req)
     if req.get("result").get("action") == "provideClueAction":
-        return guess(req)
+        return returnGuess(req)
     if req.get("result").get("action") == "wrongGuessAction":
         return wrongGuess(req)
+    if req.get("result").get("action") == "correctGuessAction":
+        return correctGuess(req)
 
 ###prototype support for Tacotac agent-----###
 ###to be moved to proper project-----------###
 def startGame(req):
     #if clue already provided, return guess
     if req.get("result").get("parameters").get("clue"):
-        return guess(req)
+        return returnGuess(req)
     #else start game and ask for clue
     else:
         askForClue  = "Ok what's your first clue?"
@@ -76,9 +78,24 @@ def startGame(req):
         return response
 
 def wrongGuess(req):
-    return guess(req)
+    return returnGuess(req)
 
-def guess(req):
+def correctGuess(req):
+    bragging = "YEAHHHH I'm the best!!"
+    response = {
+        "speech": bragging,
+        "displayText": bragging,
+        "contextOut": [
+            {
+                "name":"",
+                "lifespan":3,
+                "parameters":{}
+            }],
+        "source": "apiai-gregsagent for Tactotaac"
+    }
+    return response
+
+def returnGuess(req):
     clue=req.get("result").get("parameters").get("clue")
     guesses = ["flower","beef", "beer", "table", "car", "house", "Trump"]
     rand = random.randint(0,len(guesses)-1)
