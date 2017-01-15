@@ -58,13 +58,14 @@ def startGame(req):
     import random
     #if clue already provided, return guess
     clue=req.get("result").get("parameters").get("clue")
-    if clue is not Null:
+    if clue is not None:
         return guess(req)
     #else start game and ask for clue
+    askForClue  = "Ok what's your first clue?"
     else:
         response = {
-            "speech": guess,
-            "displayText": guess,
+            "speech": askForClue,
+            "displayText": askForClue,
             "contextOut": [
                 {
                     "name":"providing_clue",
