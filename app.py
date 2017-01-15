@@ -77,7 +77,8 @@ def startGame(req):
         return response
 
 def wrongGuess(req):
-    return startGame(req)
+    return guess(req)
+
 def guess(req):
     clue=req.get("result").get("parameters").get("clue")
     guesses = ["flower","beef", "beer", "table", "car", "house", "Trump"]
