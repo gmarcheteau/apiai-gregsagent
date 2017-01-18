@@ -118,7 +118,6 @@ def returnGuess(req):
     }
     return response
 
-def sendQuery():
     #curl -H "Content-Type: application/json; charset=utf-8" -H "Authorization: Bearer 92ba3f511fd44f158adf3df2178edf70" --data "{'event':{ 'name': 'gameWonEvent', 'data':{'score': 299}, 'lifespan': 4},'lang':'en', 'sessionId':'1234567890'}" "https://api.api.ai/v1/query?v=20150910"
 ###---------------------------------------###
 def processGregRequest(req):
