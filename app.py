@@ -90,7 +90,7 @@ def correctGuess(req):
             {
                 "name":"home_context",
                 "lifespan":20,
-                "parameters":{}
+                "parameters":{},
                 "event":{
                     "name":"gameWonEvent",
                     "data":{
