@@ -97,9 +97,8 @@ def correctGuess(req):
             "data":{
                 "score":299
             }
-           }
-        "source": "apiai-gregsagent for Tactotaac",
-        
+           },
+        "source": "apiai-gregsagent for Tactotaac"     
     }
     return response
 
