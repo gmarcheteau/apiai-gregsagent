@@ -58,7 +58,6 @@ def processRequest(req):
 ###prototype support for Tacotac agent-----###
 ###to be moved to proper project-----------###
 def startGame(req):
-    score = "0"
     #if clue already provided, return guess
     if req.get("result").get("parameters").get("clue"):
         return returnGuess(req)
@@ -84,8 +83,9 @@ def correctGuess(req):
 
 def returnGuess(req):
     if req.get("result").get("parameters").get("score"):
-        score = req.get("result").get("parameters").get("score")
-        
+        score = 1+req.get("result").get("parameters").get("score")
+    else:
+        score = 0
     clue=req.get("result").get("parameters").get("clue")
     guesses = ["flower","beef", "beer", "table", "car", "house", "Trump"]
     rand = random.randint(0,len(guesses)-1)
