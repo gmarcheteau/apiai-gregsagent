@@ -92,17 +92,13 @@ def correctGuess(req):
                 "lifespan":20,
                 "parameters":{}
             }],
-        "source": "apiai-gregsagent for Tactotaac"
-        "contexts": [
-          {
-            "name": "gameWonEvent",
-            "parameters": {
-              "user_name": "Sam",
-              "score": 299
-            },
-            "lifespan": 0
-          }
-        ],
+        "source": "apiai-gregsagent for Tactotaac",
+        "event":{
+            "name":"gameWonEvent",
+            "data":{
+                "score":299
+            }
+           }
     }
     return response
 
