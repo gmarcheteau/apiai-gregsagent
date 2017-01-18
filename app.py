@@ -99,7 +99,7 @@ def correctGuess(req):
 
 def returnGuess(req):
     if req.get("result").get("parameters").get("score"):
-        score = req.get("result").get("parameters").get("score")
+        score = 1 + req.get("result").get("parameters").get("score")
      
     clue=req.get("result").get("parameters").get("clue")
     guesses = ["flower","beef", "beer", "table", "car", "house", "Trump"]
