@@ -84,20 +84,12 @@ def correctGuess(req):
     #no bragging, simply triggering event
     bragging = ''
     response = {
-        "speech": bragging,
-        "displayText": bragging,
-        "contextOut": [
-            {
-                "name":"home_context",
-                "lifespan":20,
-                "parameters":{},
-                "event":{
+        "event":{
                     "name":"gameWonEvent",
                     "data":{
                         "score":299
                     }
-                   }
-            }],
+                   },
         "source": "apiai-gregsagent for Tactotaac"     
     }
     return response
