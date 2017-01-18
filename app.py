@@ -90,7 +90,7 @@ def correctGuess(req):
                 {
                     "name":"gameWonContext",
                     "lifespan":20,
-                    "parameters":{"score":289}
+                    "parameters":{"score":"289"}
                 }],
             "source": "apiai-gregsagent for Tactotaac"
         }
