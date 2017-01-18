@@ -81,7 +81,8 @@ def wrongGuess(req):
     return returnGuess(req)
 
 def correctGuess(req):
-    bragging = "YEAHHHH I'm the best!!"
+    #no bragging, simply triggering event
+    bragging = ''
     response = {
         "speech": bragging,
         "displayText": bragging,
@@ -92,6 +93,12 @@ def correctGuess(req):
                 "parameters":{}
             }],
         "source": "apiai-gregsagent for Tactotaac"
+        "event":{
+            "name":"gameWonEvent",
+            "data":{
+                "score":299
+            }
+           }
     }
     return response
 
