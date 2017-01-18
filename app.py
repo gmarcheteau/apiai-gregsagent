@@ -72,7 +72,7 @@ def startGame(req):
                 {
                     "name":"playing_context",
                     "lifespan":20,
-                    "parameters":{"score":score}
+                    "parameters":{"score":"score"}
                 }],
             "source": "apiai-gregsagent for Tactotaac"
         }
