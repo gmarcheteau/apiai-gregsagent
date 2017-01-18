@@ -84,14 +84,16 @@ def correctGuess(req):
     #no bragging, simply triggering event
     bragging = ''
     response = {
-        "event":{
-                    "name":"gameWonEvent",
-                    "data":{
-                        "score":299
-                    }
-                   },
-        "source": "apiai-gregsagent for Tactotaac"     
-    }
+        "speech": bragging,
+            "displayText": bragging,
+            "contextOut": [
+                {
+                    "name":"gameWonContext",
+                    "lifespan":20,
+                    "parameters":{"score":289}
+                }],
+            "source": "apiai-gregsagent for Tactotaac"
+        }
     return response
 
 def returnGuess(req):
@@ -115,6 +117,9 @@ def returnGuess(req):
         "source": "apiai-gregsagent for Tactotaac"
     }
     return response
+
+def sendQuery():
+    #curl -H "Content-Type: application/json; charset=utf-8" -H "Authorization: Bearer 92ba3f511fd44f158adf3df2178edf70" --data "{'event':{ 'name': 'gameWonEvent', 'data':{'score': 299}, 'lifespan': 4},'lang':'en', 'sessionId':'1234567890'}" "https://api.api.ai/v1/query?v=20150910"
 ###---------------------------------------###
 def processGregRequest(req):
     speech = "Yeah, this is a bit embarrassing, I'm not really sure yet what to do with your request.\nBut this is definitely coming from a webhook.\nSo technically it's working. Just so you know."
