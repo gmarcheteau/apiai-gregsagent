@@ -93,12 +93,7 @@ def correctGuess(req):
                 "parameters":{}
             }],
         "source": "apiai-gregsagent for Tactotaac",
-        "event":{
-            "name":"gameWonEvent",
-            "data":{
-                "score":299
-            }
-           }
+        
     }
     return response
 
