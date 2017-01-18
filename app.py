@@ -58,6 +58,7 @@ def processRequest(req):
 ###prototype support for Tacotac agent-----###
 ###to be moved to proper project-----------###
 def startGame(req):
+    score = 0
     #if clue already provided, return guess
     if req.get("result").get("parameters").get("clue"):
         return returnGuess(req)
@@ -69,9 +70,9 @@ def startGame(req):
             "displayText": askForClue,
             "contextOut": [
                 {
-                    "name":"providing_clue",
+                    "name":"playing_context",
                     "lifespan":20,
-                    "parameters":{}
+                    "parameters":{"score":score}
                 }],
             "source": "apiai-gregsagent for Tactotaac"
         }
@@ -97,6 +98,9 @@ def correctGuess(req):
     return response
 
 def returnGuess(req):
+    if req.get("result").get("parameters").get("score"):
+        score = req.get("result").get("parameters").get("score")
+     
     clue=req.get("result").get("parameters").get("clue")
     guesses = ["flower","beef", "beer", "table", "car", "house", "Trump"]
     rand = random.randint(0,len(guesses)-1)
@@ -111,7 +115,8 @@ def returnGuess(req):
                 "name":"playing_context",
                 "lifespan":20,
                 "parameters":{
-                    "guess":guess
+                    "guess":guess,
+                    "score":score
                 }
             }],
         "source": "apiai-gregsagent for Tactotaac"
