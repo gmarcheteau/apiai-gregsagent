@@ -84,20 +84,19 @@ def correctGuess(req):
 def returnGuess(req):
     if req.get("result").get("parameters").get("score"):
         score = int(req.get("result").get("parameters").get("score"))
-        score += 1
+        score -= 1
         print "new score -- %d" %score
     else:
         print "no score found - setting to 0"
-        score = 0
+        score = 20
     clue=req.get("result").get("parameters").get("clue")
     guesses = ["flower","beef", "beer", "table", "car", "house", "Trump"]
     rand = random.randint(0,len(guesses)-1)
     guess = guesses[rand]
-    guess += '?'
-    guess += " (clue was: %s)" %clue 
+    speech = guess + "?"
     response = {
-        "speech": guess,
-        "displayText": guess,
+        "speech": speech,
+        "displayText": speech,
         "contextOut": [
             {
                 "name":"playing_context",
