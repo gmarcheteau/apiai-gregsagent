@@ -31,7 +31,7 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-possibleActions = ["weatherAction","gregAction","chuckNorrisAction","jokeAction","bsAction","startGameAction","wrongGuessAction","correctGuessAction","provideClueAction"]
+possibleActions = ["weatherAction","gregAction","chuckNorrisAction","jokeAction","bsAction","startGameAction","provideClueAction"]
 
 def processRequest(req):
     if req.get("result").get("action") not in possibleActions:
@@ -50,10 +50,6 @@ def processRequest(req):
         return startGame(req)
     if req.get("result").get("action") == "provideClueAction":
         return returnGuess(req)
-    if req.get("result").get("action") == "wrongGuessAction":
-        return wrongGuess(req)
-    if req.get("result").get("action") == "correctGuessAction":
-        return correctGuess(req)
 
 ###prototype support for Tacotac agent-----###
 ###to be moved to proper project-----------###
