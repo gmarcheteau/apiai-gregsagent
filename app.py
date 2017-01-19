@@ -83,7 +83,7 @@ def correctGuess(req):
 
 def returnGuess(req):
     if req.get("result").get("parameters").get("score"):
-        score = req.get("result").get("parameters").get("score")
+        score = int(req.get("result").get("parameters").get("score"))
         score += 1
         print "new score -- %d" %score
     else:
