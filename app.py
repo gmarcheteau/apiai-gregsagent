@@ -31,7 +31,7 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-possibleActions = ["weatherAction","gregAction","chuckNorrisAction","jokeAction","bsAction","startGameAction","provideClueAction"]
+possibleActions = ["weatherAction","gregAction","chuckNorrisAction","jokeAction","bsAction","startGameAction","provideClueAction","finishGameAction"]
 
 def processRequest(req):
     if req.get("result").get("action") not in possibleActions:
@@ -50,6 +50,8 @@ def processRequest(req):
         return startGame(req)
     if req.get("result").get("action") == "provideClueAction":
         return returnGuess(req)
+    if req.get("result").get("action") == "finishGameAction":
+        return finishGame(req)
 
 ###prototype support for Tacotac agent-----###
 ###to be moved to proper project-----------###
@@ -106,6 +108,32 @@ def returnGuess(req):
     }
     return response
 
+def finishGame(req):
+    #get all stats
+    try:
+        score = int(req.get("result").get("parameters").get("score"))
+        guess = req.get("result").get("parameters").get("guess")
+        print "Game has ended:"
+        print "Score: %d - The word to guess was %s" %(score,guess)
+        
+        response = {
+            "contextOut": [
+                {
+                    "name":"gamestats_context",
+                    "lifespan":20,
+                    "parameters":{
+                        "game_number":99,
+                        "last_score":score
+                    }
+                }],
+            "source": "apiai-gregsagent for Tactotaac"
+        }
+        return response
+
+    except Exception as err:
+        print "Error in finishGane -- %s" %str(err)
+        return {}
+    
     #curl -H "Content-Type: application/json; charset=utf-8" -H "Authorization: Bearer 92ba3f511fd44f158adf3df2178edf70" --data "{'event':{ 'name': 'gameWonEvent', 'data':{'score': 299}, 'lifespan': 4},'lang':'en', 'sessionId':'1234567890'}" "https://api.api.ai/v1/query?v=20150910"
 ###---------------------------------------###
 def processGregRequest(req):
