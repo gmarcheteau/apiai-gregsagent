@@ -50,16 +50,66 @@ def processRequest(req):
         return startGame(req)
     if req.get("result").get("action") == "provideClueAction":
         return returnGuess(req)
-   
+####################################################
+####################################################
+####################################################
+####################################################
+####################################################
+####################################################
+####################################################
+####################################################
 ###prototype support for Tacotac agent-----###
 ###to be moved to proper project-----------###
-def startGame(req):
-    #if clue already provided, return guess
-    if req.get("result").get("parameters").get("clue"):
-        return returnGuess(req)
 
-def wrongGuess(req):
-    return returnGuess(req)
+def returnGuess(req):
+    #get parameters
+    params = req.get("result").get("parameters")
+    score = int(params.get("score"))
+    clue = params.get("clue")
+    clues = params.get("clues") #previous clues (does not include current clue)
+    guesses = params.get("guesses") #previous guesses (does not include current guess)
+    game_number = int(params.get("game_number"))
+    
+    ## DUMMY CHECK IF CLUE ALREADY PROVIDED
+    if clue in clues:
+        #do something()
+        guess = "CLUE ALREADY PROVIDED"
+
+    else:
+        clues.append(clue) #add it to the list of clues
+        ## DUMMY-- process clues and return guess
+        guess = randomGuess(clues,guesses)
+        guesses.append(guess)
+        ## MANAGE SCORE
+        score -= 1
+
+    ## DEFINE DIFFERENT VERSIONS OF HOW TO ANSWER, e.g. "My guess is [guess]"
+    speech = guess + " -- %d clue(s) provided" %len(clues)
+    
+    ## BUILD RESPONSE AND PASS PARAMETERS WITH CONTEXT
+    response = {
+        "speech": speech,
+        "displayText": speech,
+        "contextOut": [
+            {
+                "name":"playing_context",
+                "lifespan":20,
+                "parameters":{
+                    "guess":guess,
+                    "guesses":guesses,
+                    "clues":clues,
+                    "score":score,
+                    "game_number":game_number
+                }
+            }],
+        "source": "apiai-gregsagent for Tactotaac"
+    }
+    return response
+
+def randomGuess(clues,guesses):
+    guesses = ["flower","beef", "beer", "table", "car", "house", "Trump"]
+    rand = random.randint(0,len(guesses)-1)
+    return guesses[rand]
 
 def correctGuess(req):
     #no bragging, simply triggering event
@@ -76,39 +126,18 @@ def correctGuess(req):
             "source": "apiai-gregsagent for Tactotaac"
         }
     return response
-
-def returnGuess(req):
-    if req.get("result").get("parameters").get("score"):
-        score = int(req.get("result").get("parameters").get("score"))
-        score -= 1
-        print "new score -- %d" %score
-    else:
-        print "no score found - setting to 0"
-        score = 20
-    clue=req.get("result").get("parameters").get("clue")
-    guesses = ["flower","beef", "beer", "table", "car", "house", "Trump"]
-    rand = random.randint(0,len(guesses)-1)
-    guess = guesses[rand]
-    speech = guess + "?"
-    response = {
-        "speech": speech,
-        "displayText": speech,
-        "contextOut": [
-            {
-                "name":"playing_context",
-                "lifespan":20,
-                "parameters":{
-                    "guess":guess,
-                    "score":score
-                }
-            }],
-        "source": "apiai-gregsagent for Tactotaac"
-    }
-    return response
-
     
     #curl -H "Content-Type: application/json; charset=utf-8" -H "Authorization: Bearer 92ba3f511fd44f158adf3df2178edf70" --data "{'event':{ 'name': 'gameWonEvent', 'data':{'score': 299}, 'lifespan': 4},'lang':'en', 'sessionId':'1234567890'}" "https://api.api.ai/v1/query?v=20150910"
 ###---------------------------------------###
+####################################################
+####################################################
+####################################################
+####################################################
+####################################################
+####################################################
+####################################################
+####################################################
+
 def processGregRequest(req):
     speech = "Yeah, this is a bit embarrassing, I'm not really sure yet what to do with your request.\nBut this is definitely coming from a webhook.\nSo technically it's working. Just so you know."
     return {
