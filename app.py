@@ -62,12 +62,20 @@ def processRequest(req):
 ###to be moved to proper project-----------###
 
 def returnGuess(req):
+    print req
+    
     #get parameters
     params = req.get("result").get("parameters")
     score = int(params.get("score"))
     clue = params.get("clue")
-    clues = params.get("clues") #previous clues (does not include current clue)
-    guesses = params.get("guesses") #previous guesses (does not include current guess)
+    if params.get("clues"): #previous clues (does not include current clue)
+        clues = params.get("clues")
+    else clues = []
+     
+    if params.get("guesses"):
+        guesses = params.get("guesses") #previous guesses (does not include current guess)
+    else guesses = []
+    
     game_number = int(params.get("game_number"))
     
     ## DUMMY CHECK IF CLUE ALREADY PROVIDED
