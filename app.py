@@ -65,7 +65,10 @@ def returnGuess(req):
     print req
     
     #get parameters
-    params = req.get("result").get("contexts").get("playing_context").get("parameters")
+    context_list = req.get("result").get("contexts") #list of context (they are dict)
+    playing_context = (context for context in context_list if item["name"] == "playing_context").next()
+    params = playing_context.get("parameters")
+    
     score = int(params.get("score"))
     clue = params.get("clue")
     clues = params.get("clues",[]) #previous clues (does not include current clue)
