@@ -33,7 +33,7 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-possibleActions = ["weatherAction","gregAction","chuckNorrisAction","jokeAction","bsAction","startGameAction","provideClueAction","finishGameAction"]
+possibleActions = ["weatherAction","gregAction","chuckNorrisAction","jokeAction","bsAction","startGameAction","provideClueAction","endGameAction"]
 
 def processRequest(req):
     if req.get("result").get("action") not in possibleActions:
@@ -52,6 +52,8 @@ def processRequest(req):
         return startGame(req)
     if req.get("result").get("action") == "provideClueAction":
         return returnGuess(req)
+    if req.get("result").get("action") == "endGameAction":
+        return endGame(req)
 ####################################################
 ####################################################
 ####################################################
@@ -64,8 +66,6 @@ def processRequest(req):
 ###to be moved to proper project-----------###
 
 def returnGuess(req):
-    print req
-    
     #get parameters
     context_list = req.get("result").get("contexts") #list of context (they are dict)
     playing_context = (context for context in context_list if context["name"] == "playing_context").next()
@@ -119,20 +119,41 @@ def randomGuess(clues,guesses):
     rand = random.randint(0,len(guesses)-1)
     return guesses[rand]
 
-def correctGuess(req):
-    #no bragging, simply triggering event
-    bragging = ''
+def endGame(req):
+    #get parameters
+    context_list = req.get("result").get("contexts") #list of context (they are dict)
+    playing_context = (context for context in context_list if context["name"] == "playing_context").next()
+    params = playing_context.get("parameters")
+    
+    answer = int(params.get("answer","no answer"))
+    score = int(params.get("score"))
+    clues = params.get("clues",[]) #previous clues (does not include current clue)
+    guesses = params.get("guesses",[]) #previous guesses (does not include current guess)
+   
+    game_number = int(params.get("game_number"))
+    
+
+    ## DEFINE DIFFERENT VERSIONS OF HOW TO CONGRATULATE
+    speech = "Ok! Nice one, so I guessed %s with only %d clues." %(answer,len(clues))
+    
+    ## BUILD RESPONSE AND PASS PARAMETERS WITH NEW CONTEXT
     response = {
-        "speech": bragging,
-            "displayText": bragging,
-            "contextOut": [
-                {
-                    "name":"gameWonContext",
-                    "lifespan":20,
-                    "parameters":{"score":"289"}
-                }],
-            "source": "apiai-gregsagent for Tactotaac"
-        }
+        "speech": speech,
+        "displayText": speech,
+        "contextOut": [
+            {
+                "name":"end_game_context",
+                "lifespan":20,
+                "parameters":{
+                    "answer":answer,
+                    "guesses":guesses,
+                    "clues":clues,
+                    "score":score,
+                    "game_number":game_number
+                }
+            }],
+        "source": "apiai-gregsagent for Tactotaac"
+    }
     return response
     
     #curl -H "Content-Type: application/json; charset=utf-8" -H "Authorization: Bearer 92ba3f511fd44f158adf3df2178edf70" --data "{'event':{ 'name': 'gameWonEvent', 'data':{'score': 299}, 'lifespan': 4},'lang':'en', 'sessionId':'1234567890'}" "https://api.api.ai/v1/query?v=20150910"
