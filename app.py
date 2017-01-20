@@ -4,7 +4,7 @@ import urllib
 import json
 import os
 import random
-import logger
+import logging
 import ArtyFarty.bsgenerator as bs
 import ArtyFarty.bsgenerator_en as bs_en
 import ArtyFarty.imageapp as imageapp
