@@ -75,7 +75,7 @@ def returnGuess(req):
     clue = params.get("clue")
     clues = params.get("clues",[]) #previous clues (does not include current clue)
     guesses = params.get("guesses",[]) #previous guesses (does not include current guess)
-   
+    #detect whether game is new and update game_number? or do it on the agent?
     game_number = int(params.get("game_number"))
     
     ## DUMMY CHECK IF CLUE ALREADY PROVIDED
