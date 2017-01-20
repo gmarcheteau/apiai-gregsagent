@@ -125,7 +125,7 @@ def endGame(req):
     playing_context = (context for context in context_list if context["name"] == "playing_context").next()
     params = playing_context.get("parameters")
     
-    answer = int(params.get("answer","no answer"))
+    answer = params.get("answer","no answer")
     score = int(params.get("score"))
     clues = params.get("clues",[]) #previous clues (does not include current clue)
     guesses = params.get("guesses",[]) #previous guesses (does not include current guess)
