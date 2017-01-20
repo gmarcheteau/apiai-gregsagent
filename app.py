@@ -4,6 +4,7 @@ import urllib
 import json
 import os
 import random
+import logger
 import ArtyFarty.bsgenerator as bs
 import ArtyFarty.bsgenerator_en as bs_en
 import ArtyFarty.imageapp as imageapp
@@ -333,6 +334,9 @@ def simple():
 
 
 if __name__ == '__main__':
+    app.logger.addHandler(logging.StreamHandler(sys.stdout))
+    app.logger.setLevel(logging.ERROR)
+    
     port = int(os.getenv('PORT', 5000))
 
     print "Starting app on port %d" % port
