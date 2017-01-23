@@ -172,8 +172,8 @@ def endGame(req):
         "displayText": speech,
         "contextOut": [
             {
-                "name":"end_game_context",
-                "lifespan":20,
+                "name":"playing_context",
+                "lifespan":0,
                 "parameters":{
                     "answer":answer,
                     "guesses":guesses,
