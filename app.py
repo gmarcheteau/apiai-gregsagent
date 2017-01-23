@@ -155,7 +155,11 @@ def endGame(req):
                     "score":score,
                     "game_number":game_number
                 }
-            }],
+            },
+            {
+                    "name":"playing_context",
+                    "lifespan":0,
+                }],
         "source": "apiai-gregsagent for Tactotaac"
     }
     return response
