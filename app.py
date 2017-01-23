@@ -120,9 +120,8 @@ def randomGuess(clues,guesses):
     return guesses[rand]
 
 def startGame(req):
-  speech = "Sure ok, please provide a clue and I'll try to guess."
-  
-  ## BUILD RESPONSE AND PASS PARAMETERS WITH NEW CONTEXT
+    speech = "Sure ok, please provide a clue and I'll try to guess."
+    ## BUILD RESPONSE AND PASS PARAMETERS WITH NEW CONTEXT
     response = {
         "speech": speech,
         "displayText": speech,
