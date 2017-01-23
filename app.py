@@ -119,6 +119,29 @@ def randomGuess(clues,guesses):
     rand = random.randint(0,len(guesses)-1)
     return guesses[rand]
 
+def startGame(req):
+  speech = "Sure ok, please provide a clue and I'll try to guess."
+  
+  ## BUILD RESPONSE AND PASS PARAMETERS WITH NEW CONTEXT
+    response = {
+        "speech": speech,
+        "displayText": speech,
+        "contextOut": [
+            {
+                "name":"awaiting_clue_context",
+                "lifespan":1,
+            },
+            {
+                "name":"session_context",
+                "lifespan":5,
+                "parameters":{
+                    "games_played":99
+                }
+            }],
+        "source": "apiai-gregsagent for Tactotaac"
+    }
+    return response
+  
 def endGame(req):
     #get parameters
     context_list = req.get("result").get("contexts") #list of context (they are dict)
