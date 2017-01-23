@@ -124,17 +124,21 @@ def endGame(req):
     context_list = req.get("result").get("contexts") #list of context (they are dict)
     playing_context = (context for context in context_list if context["name"] == "playing_context").next()
     params = playing_context.get("parameters")
-    
-    answer = params.get("answer","no answer")
+   
     score = int(params.get("score"))
     clues = params.get("clues",[]) #previous clues (does not include current clue)
     guesses = params.get("guesses",[]) #previous guesses (does not include current guess)
    
     game_number = int(params.get("game_number"))
     
-
-    ## DEFINE DIFFERENT VERSIONS OF HOW TO CONGRATULATE
-    speech = "Ok! Nice one, so I guessed %s with only %d clues." %(answer,len(clues))
+    game_status = params.get("get_status","none")
+    if game_status = "lost":
+        anser = params.get("answer","no answer provided")
+        speech = "Damn, %s wasn't easy!" %answer
+    else:
+        ## DEFINE DIFFERENT VERSIONS OF HOW TO CONGRATULATE
+        answer = guesses[-1]
+        speech = "Ok! Nice one, so I guessed %s with only %d clues." %(answer,len(clues))
     
     ## BUILD RESPONSE AND PASS PARAMETERS WITH NEW CONTEXT
     response = {
