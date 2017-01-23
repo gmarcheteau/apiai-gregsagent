@@ -133,7 +133,7 @@ def endGame(req):
     
     game_status = params.get("get_status","none")
     if game_status == "lost":
-        anser = params.get("answer","no answer provided")
+        answer = params.get("answer","no answer provided")
         speech = "Damn, %s wasn't easy!" %answer
     else:
         ## DEFINE DIFFERENT VERSIONS OF HOW TO CONGRATULATE
