@@ -131,15 +131,19 @@ def endGame(req):
    
     game_number = int(params.get("game_number"))
     
-    game_status = params.get("get_status","none")
+    game_status = params.get("game_status","none")
     if game_status == "lost":
         answer = params.get("answer","no answer provided")
         speech = "Damn, %s wasn't easy!" %answer
-    else:
+    elif game_status == "won":
         ## DEFINE DIFFERENT VERSIONS OF HOW TO CONGRATULATE
         answer = guesses[-1]
         speech = "Ok! Nice one, so I guessed %s with only %d clues." %(answer,len(clues))
     
+    else:
+        answer = "no answer"
+        speech = "Unable to detect game_status...(from webhook)"
+
     ## BUILD RESPONSE AND PASS PARAMETERS WITH NEW CONTEXT
     response = {
         "speech": speech,
