@@ -127,7 +127,7 @@ def startGame(req):
         "displayText": speech,
         "contextOut": [
             {
-                "name":"awaiting_clue_context",
+                "name":"playing_context",
                 "lifespan":1,
             },
             {
