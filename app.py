@@ -122,7 +122,7 @@ def randomGuess(clues,guesses):
 def endGame(req):
     #get parameters
     context_list = req.get("result").get("contexts") #list of context (they are dict)
-    playing_context = (context for context in context_list if context["name"] == "playing_context").next()
+    playing_context = [context for context in context_list if context["name"] == "playing_context"][0]
     params = playing_context.get("parameters")
    
     score = int(params.get("score"))
