@@ -132,7 +132,7 @@ def endGame(req):
     game_number = int(params.get("game_number"))
     
     game_status = params.get("get_status","none")
-    if game_status = "lost":
+    if game_status == "lost":
         anser = params.get("answer","no answer provided")
         speech = "Damn, %s wasn't easy!" %answer
     else:
