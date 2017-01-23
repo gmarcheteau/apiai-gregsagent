@@ -71,8 +71,8 @@ def returnGuess(req):
     playing_context = [context for context in context_list if context["name"] == "playing_context"][0]
     params = playing_context.get("parameters")
     
-    score = int(params.get("score"))
-    clue = params.get("clue")
+    score = int(params.get("score",0))
+    clue = params.get("clue","noclue")
     clues = params.get("clues",[]) #previous clues (does not include current clue)
     guesses = params.get("guesses",[]) #previous guesses (does not include current guess)
     #detect whether game is new and update game_number? or do it on the agent?
